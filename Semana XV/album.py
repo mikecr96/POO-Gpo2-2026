@@ -6,21 +6,14 @@ class AlbumPanini:
         self.estampas_pegadas = []
 
     def pegar_estampa(self, estampa):
-        if len(self.estampas_pegadas) < AlbumPanini.num_max:
-            for i in self.estampas_pegadas:
-                if estampa.nombre == i.nombre and estampa.pais == i.pais:
-                    if estampa.es_dorada == i.es_dorada:
-                        print("Usted ya tiene esta estampa.")
-                    elif estampa.es_dorada and not i.es_dorada:
-                        indice = self.estampas_pegadas.index(i)
-                        self.estampas_pegadas[indice] = estampa
-                    else:
-                        self.estampas_pegadas.append(estampa)
-        else:
-            print("Ya llenaste el álbum, seguramente eres rico.")
-
-        """
-        1. no puede haber jugadores repetidos
-        2. privilegiamos doradas: si hay una no dorada la reemplazamos
-        3. crear una variable que contenga los nombres de las estampas ya pegadas (list comprehension)       
-        """
+        for c, pegada in enumerate(self.estampas_pegadas):
+            if estampa.nombre == pegada.nombre and estampa.pais == pegada.pais:
+                if estampa.es_dorada and not pegada.es_dorada:
+                    print(f"Mejora! Estampa de {estampa.nombre} normal cambiada por dorada!")
+                    self.estampas_pegadas[c] = estampa
+                else:
+                    print(f"Ya tienes a {estampa.nombre} en tu álbum.")
+                    break
+        else: # Nota: else en un for solo se ejectua si el ciclo terminó de forma natural (no hubo break)
+            print(f"Estampa de {estampa.nombre} pegada a tu álbum")
+            self.estampas_pegadas.append(estampa)
